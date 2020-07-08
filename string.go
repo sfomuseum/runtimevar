@@ -1,12 +1,12 @@
-package string
+package runtimevar
 
 import (
 	"context"
-	"gocloud.dev/runtimevar"
+	gc "gocloud.dev/runtimevar"
 	"net/url"
 )
 
-func RuntimeVar(ctx context.Context, uri string) (string, error) {
+func StringVar(ctx context.Context, uri string) (string, error) {
 
 	u, err := url.Parse(uri)
 
@@ -23,7 +23,7 @@ func RuntimeVar(ctx context.Context, uri string) (string, error) {
 
 	uri = u.String()
 
-	v, err := runtimevar.OpenVariable(ctx, uri)
+	v, err := gc.OpenVariable(ctx, uri)
 
 	if err != nil {
 		return "", err

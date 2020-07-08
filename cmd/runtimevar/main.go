@@ -4,7 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/sfomuseum/runtimevar/string"
+	"github.com/sfomuseum/runtimevar"
 	_ "gocloud.dev/runtimevar/awsparamstore"
 	_ "gocloud.dev/runtimevar/constantvar"
 	_ "gocloud.dev/runtimevar/filevar"
@@ -19,7 +19,7 @@ func main() {
 
 	for _, uri := range flag.Args() {
 
-		str_var, err := string.RuntimeVar(ctx, uri)
+		str_var, err := runtimevar.StringVar(ctx, uri)
 
 		if err != nil {
 			log.Fatal(err)
