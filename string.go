@@ -6,7 +6,7 @@ import (
 	gc "gocloud.dev/runtimevar"
 	"gocloud.dev/runtimevar/awsparamstore"
 	"github.com/aaronland/go-aws-session"
-	"log"
+	_ "log"
 	"net/url"
 )
 
@@ -39,14 +39,13 @@ func StringVar(ctx context.Context, uri string) (string, error) {
 		if creds != "" {
 
 			dsn_str := fmt.Sprintf("region=%s credentials=%s", region, creds)
-			log.Println("CREDS", dsn_str)
 			sess, err := session.NewSessionWithDSN(dsn_str)
 
 			if err != nil {
 				return "", err
 			}
 
-			v, v_err = awsparamstore.OpenVariable(sess, u.Path, gc.StringDecoder, nil)
+			v, v_err = awsparamstore.OpenVariable(sess, u.Host, gc.StringDecoder, nil)
 		}
 		
 	default:
