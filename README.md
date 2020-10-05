@@ -68,4 +68,4 @@ Credentials for AWS sessions are defined as string labels. They are:
 ## See also
 
 * https://gocloud.dev/howto/runtimevar
-*https://github.com/aaronland/go-aws-session
+* https://github.com/aaronland/go-aws-session
