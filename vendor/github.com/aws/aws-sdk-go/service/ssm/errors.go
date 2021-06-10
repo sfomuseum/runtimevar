@@ -53,6 +53,13 @@ const (
 	// Each association has a limit of 1,000 versions.
 	ErrCodeAssociationVersionLimitExceeded = "AssociationVersionLimitExceeded"
 
+	// ErrCodeAutomationDefinitionNotApprovedException for service response error code
+	// "AutomationDefinitionNotApprovedException".
+	//
+	// Indicates that the Change Manager change template used in the change request
+	// was rejected or is still in a pending state.
+	ErrCodeAutomationDefinitionNotApprovedException = "AutomationDefinitionNotApprovedException"
+
 	// ErrCodeAutomationDefinitionNotFoundException for service response error code
 	// "AutomationDefinitionNotFoundException".
 	//
@@ -569,6 +576,59 @@ const (
 	// The specified OpsItem ID doesn't exist. Verify the ID and try again.
 	ErrCodeOpsItemNotFoundException = "OpsItemNotFoundException"
 
+	// ErrCodeOpsItemRelatedItemAlreadyExistsException for service response error code
+	// "OpsItemRelatedItemAlreadyExistsException".
+	//
+	// The Amazon Resource Name (ARN) is already associated with the OpsItem.
+	ErrCodeOpsItemRelatedItemAlreadyExistsException = "OpsItemRelatedItemAlreadyExistsException"
+
+	// ErrCodeOpsItemRelatedItemAssociationNotFoundException for service response error code
+	// "OpsItemRelatedItemAssociationNotFoundException".
+	//
+	// The association was not found using the parameters you specified in the call.
+	// Verify the information and try again.
+	ErrCodeOpsItemRelatedItemAssociationNotFoundException = "OpsItemRelatedItemAssociationNotFoundException"
+
+	// ErrCodeOpsMetadataAlreadyExistsException for service response error code
+	// "OpsMetadataAlreadyExistsException".
+	//
+	// An OpsMetadata object already exists for the selected resource.
+	ErrCodeOpsMetadataAlreadyExistsException = "OpsMetadataAlreadyExistsException"
+
+	// ErrCodeOpsMetadataInvalidArgumentException for service response error code
+	// "OpsMetadataInvalidArgumentException".
+	//
+	// One of the arguments passed is invalid.
+	ErrCodeOpsMetadataInvalidArgumentException = "OpsMetadataInvalidArgumentException"
+
+	// ErrCodeOpsMetadataKeyLimitExceededException for service response error code
+	// "OpsMetadataKeyLimitExceededException".
+	//
+	// The OpsMetadata object exceeds the maximum number of OpsMetadata keys that
+	// you can assign to an application in Application Manager.
+	ErrCodeOpsMetadataKeyLimitExceededException = "OpsMetadataKeyLimitExceededException"
+
+	// ErrCodeOpsMetadataLimitExceededException for service response error code
+	// "OpsMetadataLimitExceededException".
+	//
+	// Your account reached the maximum number of OpsMetadata objects allowed by
+	// Application Manager. The maximum is 200 OpsMetadata objects. Delete one or
+	// more OpsMetadata object and try again.
+	ErrCodeOpsMetadataLimitExceededException = "OpsMetadataLimitExceededException"
+
+	// ErrCodeOpsMetadataNotFoundException for service response error code
+	// "OpsMetadataNotFoundException".
+	//
+	// The OpsMetadata object does not exist.
+	ErrCodeOpsMetadataNotFoundException = "OpsMetadataNotFoundException"
+
+	// ErrCodeOpsMetadataTooManyUpdatesException for service response error code
+	// "OpsMetadataTooManyUpdatesException".
+	//
+	// The system is processing too many concurrent updates. Wait a few moments
+	// and try again.
+	ErrCodeOpsMetadataTooManyUpdatesException = "OpsMetadataTooManyUpdatesException"
+
 	// ErrCodeParameterAlreadyExists for service response error code
 	// "ParameterAlreadyExists".
 	//
@@ -799,117 +859,126 @@ const (
 )
 
 var exceptionFromCode = map[string]func(protocol.ResponseMetadata) error{
-	"AlreadyExistsException":                        newErrorAlreadyExistsException,
-	"AssociatedInstances":                           newErrorAssociatedInstances,
-	"AssociationAlreadyExists":                      newErrorAssociationAlreadyExists,
-	"AssociationDoesNotExist":                       newErrorAssociationDoesNotExist,
-	"AssociationExecutionDoesNotExist":              newErrorAssociationExecutionDoesNotExist,
-	"AssociationLimitExceeded":                      newErrorAssociationLimitExceeded,
-	"AssociationVersionLimitExceeded":               newErrorAssociationVersionLimitExceeded,
-	"AutomationDefinitionNotFoundException":         newErrorAutomationDefinitionNotFoundException,
-	"AutomationDefinitionVersionNotFoundException":  newErrorAutomationDefinitionVersionNotFoundException,
-	"AutomationExecutionLimitExceededException":     newErrorAutomationExecutionLimitExceededException,
-	"AutomationExecutionNotFoundException":          newErrorAutomationExecutionNotFoundException,
-	"AutomationStepNotFoundException":               newErrorAutomationStepNotFoundException,
-	"ComplianceTypeCountLimitExceededException":     newErrorComplianceTypeCountLimitExceededException,
-	"CustomSchemaCountLimitExceededException":       newErrorCustomSchemaCountLimitExceededException,
-	"DocumentAlreadyExists":                         newErrorDocumentAlreadyExists,
-	"DocumentLimitExceeded":                         newErrorDocumentLimitExceeded,
-	"DocumentPermissionLimit":                       newErrorDocumentPermissionLimit,
-	"DocumentVersionLimitExceeded":                  newErrorDocumentVersionLimitExceeded,
-	"DoesNotExistException":                         newErrorDoesNotExistException,
-	"DuplicateDocumentContent":                      newErrorDuplicateDocumentContent,
-	"DuplicateDocumentVersionName":                  newErrorDuplicateDocumentVersionName,
-	"DuplicateInstanceId":                           newErrorDuplicateInstanceId,
-	"FeatureNotAvailableException":                  newErrorFeatureNotAvailableException,
-	"HierarchyLevelLimitExceededException":          newErrorHierarchyLevelLimitExceededException,
-	"HierarchyTypeMismatchException":                newErrorHierarchyTypeMismatchException,
-	"IdempotentParameterMismatch":                   newErrorIdempotentParameterMismatch,
-	"IncompatiblePolicyException":                   newErrorIncompatiblePolicyException,
-	"InternalServerError":                           newErrorInternalServerError,
-	"InvalidActivation":                             newErrorInvalidActivation,
-	"InvalidActivationId":                           newErrorInvalidActivationId,
-	"InvalidAggregatorException":                    newErrorInvalidAggregatorException,
-	"InvalidAllowedPatternException":                newErrorInvalidAllowedPatternException,
-	"InvalidAssociation":                            newErrorInvalidAssociation,
-	"InvalidAssociationVersion":                     newErrorInvalidAssociationVersion,
-	"InvalidAutomationExecutionParametersException": newErrorInvalidAutomationExecutionParametersException,
-	"InvalidAutomationSignalException":              newErrorInvalidAutomationSignalException,
-	"InvalidAutomationStatusUpdateException":        newErrorInvalidAutomationStatusUpdateException,
-	"InvalidCommandId":                              newErrorInvalidCommandId,
-	"InvalidDeleteInventoryParametersException":     newErrorInvalidDeleteInventoryParametersException,
-	"InvalidDeletionIdException":                    newErrorInvalidDeletionIdException,
-	"InvalidDocument":                               newErrorInvalidDocument,
-	"InvalidDocumentContent":                        newErrorInvalidDocumentContent,
-	"InvalidDocumentOperation":                      newErrorInvalidDocumentOperation,
-	"InvalidDocumentSchemaVersion":                  newErrorInvalidDocumentSchemaVersion,
-	"InvalidDocumentType":                           newErrorInvalidDocumentType,
-	"InvalidDocumentVersion":                        newErrorInvalidDocumentVersion,
-	"InvalidFilter":                                 newErrorInvalidFilter,
-	"InvalidFilterKey":                              newErrorInvalidFilterKey,
-	"InvalidFilterOption":                           newErrorInvalidFilterOption,
-	"InvalidFilterValue":                            newErrorInvalidFilterValue,
-	"InvalidInstanceId":                             newErrorInvalidInstanceId,
-	"InvalidInstanceInformationFilterValue":         newErrorInvalidInstanceInformationFilterValue,
-	"InvalidInventoryGroupException":                newErrorInvalidInventoryGroupException,
-	"InvalidInventoryItemContextException":          newErrorInvalidInventoryItemContextException,
-	"InvalidInventoryRequestException":              newErrorInvalidInventoryRequestException,
-	"InvalidItemContentException":                   newErrorInvalidItemContentException,
-	"InvalidKeyId":                                  newErrorInvalidKeyId,
-	"InvalidNextToken":                              newErrorInvalidNextToken,
-	"InvalidNotificationConfig":                     newErrorInvalidNotificationConfig,
-	"InvalidOptionException":                        newErrorInvalidOptionException,
-	"InvalidOutputFolder":                           newErrorInvalidOutputFolder,
-	"InvalidOutputLocation":                         newErrorInvalidOutputLocation,
-	"InvalidParameters":                             newErrorInvalidParameters,
-	"InvalidPermissionType":                         newErrorInvalidPermissionType,
-	"InvalidPluginName":                             newErrorInvalidPluginName,
-	"InvalidPolicyAttributeException":               newErrorInvalidPolicyAttributeException,
-	"InvalidPolicyTypeException":                    newErrorInvalidPolicyTypeException,
-	"InvalidResourceId":                             newErrorInvalidResourceId,
-	"InvalidResourceType":                           newErrorInvalidResourceType,
-	"InvalidResultAttributeException":               newErrorInvalidResultAttributeException,
-	"InvalidRole":                                   newErrorInvalidRole,
-	"InvalidSchedule":                               newErrorInvalidSchedule,
-	"InvalidTarget":                                 newErrorInvalidTarget,
-	"InvalidTypeNameException":                      newErrorInvalidTypeNameException,
-	"InvalidUpdate":                                 newErrorInvalidUpdate,
-	"InvocationDoesNotExist":                        newErrorInvocationDoesNotExist,
-	"ItemContentMismatchException":                  newErrorItemContentMismatchException,
-	"ItemSizeLimitExceededException":                newErrorItemSizeLimitExceededException,
-	"MaxDocumentSizeExceeded":                       newErrorMaxDocumentSizeExceeded,
-	"OpsItemAlreadyExistsException":                 newErrorOpsItemAlreadyExistsException,
-	"OpsItemInvalidParameterException":              newErrorOpsItemInvalidParameterException,
-	"OpsItemLimitExceededException":                 newErrorOpsItemLimitExceededException,
-	"OpsItemNotFoundException":                      newErrorOpsItemNotFoundException,
-	"ParameterAlreadyExists":                        newErrorParameterAlreadyExists,
-	"ParameterLimitExceeded":                        newErrorParameterLimitExceeded,
-	"ParameterMaxVersionLimitExceeded":              newErrorParameterMaxVersionLimitExceeded,
-	"ParameterNotFound":                             newErrorParameterNotFound,
-	"ParameterPatternMismatchException":             newErrorParameterPatternMismatchException,
-	"ParameterVersionLabelLimitExceeded":            newErrorParameterVersionLabelLimitExceeded,
-	"ParameterVersionNotFound":                      newErrorParameterVersionNotFound,
-	"PoliciesLimitExceededException":                newErrorPoliciesLimitExceededException,
-	"ResourceDataSyncAlreadyExistsException":        newErrorResourceDataSyncAlreadyExistsException,
-	"ResourceDataSyncConflictException":             newErrorResourceDataSyncConflictException,
-	"ResourceDataSyncCountExceededException":        newErrorResourceDataSyncCountExceededException,
-	"ResourceDataSyncInvalidConfigurationException": newErrorResourceDataSyncInvalidConfigurationException,
-	"ResourceDataSyncNotFoundException":             newErrorResourceDataSyncNotFoundException,
-	"ResourceInUseException":                        newErrorResourceInUseException,
-	"ResourceLimitExceededException":                newErrorResourceLimitExceededException,
-	"ServiceSettingNotFound":                        newErrorServiceSettingNotFound,
-	"StatusUnchanged":                               newErrorStatusUnchanged,
-	"SubTypeCountLimitExceededException":            newErrorSubTypeCountLimitExceededException,
-	"TargetInUseException":                          newErrorTargetInUseException,
-	"TargetNotConnected":                            newErrorTargetNotConnected,
-	"TooManyTagsError":                              newErrorTooManyTagsError,
-	"TooManyUpdates":                                newErrorTooManyUpdates,
-	"TotalSizeLimitExceededException":               newErrorTotalSizeLimitExceededException,
-	"UnsupportedCalendarException":                  newErrorUnsupportedCalendarException,
-	"UnsupportedFeatureRequiredException":           newErrorUnsupportedFeatureRequiredException,
-	"UnsupportedInventoryItemContextException":      newErrorUnsupportedInventoryItemContextException,
-	"UnsupportedInventorySchemaVersionException":    newErrorUnsupportedInventorySchemaVersionException,
-	"UnsupportedOperatingSystem":                    newErrorUnsupportedOperatingSystem,
-	"UnsupportedParameterType":                      newErrorUnsupportedParameterType,
-	"UnsupportedPlatformType":                       newErrorUnsupportedPlatformType,
+	"AlreadyExistsException":                         newErrorAlreadyExistsException,
+	"AssociatedInstances":                            newErrorAssociatedInstances,
+	"AssociationAlreadyExists":                       newErrorAssociationAlreadyExists,
+	"AssociationDoesNotExist":                        newErrorAssociationDoesNotExist,
+	"AssociationExecutionDoesNotExist":               newErrorAssociationExecutionDoesNotExist,
+	"AssociationLimitExceeded":                       newErrorAssociationLimitExceeded,
+	"AssociationVersionLimitExceeded":                newErrorAssociationVersionLimitExceeded,
+	"AutomationDefinitionNotApprovedException":       newErrorAutomationDefinitionNotApprovedException,
+	"AutomationDefinitionNotFoundException":          newErrorAutomationDefinitionNotFoundException,
+	"AutomationDefinitionVersionNotFoundException":   newErrorAutomationDefinitionVersionNotFoundException,
+	"AutomationExecutionLimitExceededException":      newErrorAutomationExecutionLimitExceededException,
+	"AutomationExecutionNotFoundException":           newErrorAutomationExecutionNotFoundException,
+	"AutomationStepNotFoundException":                newErrorAutomationStepNotFoundException,
+	"ComplianceTypeCountLimitExceededException":      newErrorComplianceTypeCountLimitExceededException,
+	"CustomSchemaCountLimitExceededException":        newErrorCustomSchemaCountLimitExceededException,
+	"DocumentAlreadyExists":                          newErrorDocumentAlreadyExists,
+	"DocumentLimitExceeded":                          newErrorDocumentLimitExceeded,
+	"DocumentPermissionLimit":                        newErrorDocumentPermissionLimit,
+	"DocumentVersionLimitExceeded":                   newErrorDocumentVersionLimitExceeded,
+	"DoesNotExistException":                          newErrorDoesNotExistException,
+	"DuplicateDocumentContent":                       newErrorDuplicateDocumentContent,
+	"DuplicateDocumentVersionName":                   newErrorDuplicateDocumentVersionName,
+	"DuplicateInstanceId":                            newErrorDuplicateInstanceId,
+	"FeatureNotAvailableException":                   newErrorFeatureNotAvailableException,
+	"HierarchyLevelLimitExceededException":           newErrorHierarchyLevelLimitExceededException,
+	"HierarchyTypeMismatchException":                 newErrorHierarchyTypeMismatchException,
+	"IdempotentParameterMismatch":                    newErrorIdempotentParameterMismatch,
+	"IncompatiblePolicyException":                    newErrorIncompatiblePolicyException,
+	"InternalServerError":                            newErrorInternalServerError,
+	"InvalidActivation":                              newErrorInvalidActivation,
+	"InvalidActivationId":                            newErrorInvalidActivationId,
+	"InvalidAggregatorException":                     newErrorInvalidAggregatorException,
+	"InvalidAllowedPatternException":                 newErrorInvalidAllowedPatternException,
+	"InvalidAssociation":                             newErrorInvalidAssociation,
+	"InvalidAssociationVersion":                      newErrorInvalidAssociationVersion,
+	"InvalidAutomationExecutionParametersException":  newErrorInvalidAutomationExecutionParametersException,
+	"InvalidAutomationSignalException":               newErrorInvalidAutomationSignalException,
+	"InvalidAutomationStatusUpdateException":         newErrorInvalidAutomationStatusUpdateException,
+	"InvalidCommandId":                               newErrorInvalidCommandId,
+	"InvalidDeleteInventoryParametersException":      newErrorInvalidDeleteInventoryParametersException,
+	"InvalidDeletionIdException":                     newErrorInvalidDeletionIdException,
+	"InvalidDocument":                                newErrorInvalidDocument,
+	"InvalidDocumentContent":                         newErrorInvalidDocumentContent,
+	"InvalidDocumentOperation":                       newErrorInvalidDocumentOperation,
+	"InvalidDocumentSchemaVersion":                   newErrorInvalidDocumentSchemaVersion,
+	"InvalidDocumentType":                            newErrorInvalidDocumentType,
+	"InvalidDocumentVersion":                         newErrorInvalidDocumentVersion,
+	"InvalidFilter":                                  newErrorInvalidFilter,
+	"InvalidFilterKey":                               newErrorInvalidFilterKey,
+	"InvalidFilterOption":                            newErrorInvalidFilterOption,
+	"InvalidFilterValue":                             newErrorInvalidFilterValue,
+	"InvalidInstanceId":                              newErrorInvalidInstanceId,
+	"InvalidInstanceInformationFilterValue":          newErrorInvalidInstanceInformationFilterValue,
+	"InvalidInventoryGroupException":                 newErrorInvalidInventoryGroupException,
+	"InvalidInventoryItemContextException":           newErrorInvalidInventoryItemContextException,
+	"InvalidInventoryRequestException":               newErrorInvalidInventoryRequestException,
+	"InvalidItemContentException":                    newErrorInvalidItemContentException,
+	"InvalidKeyId":                                   newErrorInvalidKeyId,
+	"InvalidNextToken":                               newErrorInvalidNextToken,
+	"InvalidNotificationConfig":                      newErrorInvalidNotificationConfig,
+	"InvalidOptionException":                         newErrorInvalidOptionException,
+	"InvalidOutputFolder":                            newErrorInvalidOutputFolder,
+	"InvalidOutputLocation":                          newErrorInvalidOutputLocation,
+	"InvalidParameters":                              newErrorInvalidParameters,
+	"InvalidPermissionType":                          newErrorInvalidPermissionType,
+	"InvalidPluginName":                              newErrorInvalidPluginName,
+	"InvalidPolicyAttributeException":                newErrorInvalidPolicyAttributeException,
+	"InvalidPolicyTypeException":                     newErrorInvalidPolicyTypeException,
+	"InvalidResourceId":                              newErrorInvalidResourceId,
+	"InvalidResourceType":                            newErrorInvalidResourceType,
+	"InvalidResultAttributeException":                newErrorInvalidResultAttributeException,
+	"InvalidRole":                                    newErrorInvalidRole,
+	"InvalidSchedule":                                newErrorInvalidSchedule,
+	"InvalidTarget":                                  newErrorInvalidTarget,
+	"InvalidTypeNameException":                       newErrorInvalidTypeNameException,
+	"InvalidUpdate":                                  newErrorInvalidUpdate,
+	"InvocationDoesNotExist":                         newErrorInvocationDoesNotExist,
+	"ItemContentMismatchException":                   newErrorItemContentMismatchException,
+	"ItemSizeLimitExceededException":                 newErrorItemSizeLimitExceededException,
+	"MaxDocumentSizeExceeded":                        newErrorMaxDocumentSizeExceeded,
+	"OpsItemAlreadyExistsException":                  newErrorOpsItemAlreadyExistsException,
+	"OpsItemInvalidParameterException":               newErrorOpsItemInvalidParameterException,
+	"OpsItemLimitExceededException":                  newErrorOpsItemLimitExceededException,
+	"OpsItemNotFoundException":                       newErrorOpsItemNotFoundException,
+	"OpsItemRelatedItemAlreadyExistsException":       newErrorOpsItemRelatedItemAlreadyExistsException,
+	"OpsItemRelatedItemAssociationNotFoundException": newErrorOpsItemRelatedItemAssociationNotFoundException,
+	"OpsMetadataAlreadyExistsException":              newErrorOpsMetadataAlreadyExistsException,
+	"OpsMetadataInvalidArgumentException":            newErrorOpsMetadataInvalidArgumentException,
+	"OpsMetadataKeyLimitExceededException":           newErrorOpsMetadataKeyLimitExceededException,
+	"OpsMetadataLimitExceededException":              newErrorOpsMetadataLimitExceededException,
+	"OpsMetadataNotFoundException":                   newErrorOpsMetadataNotFoundException,
+	"OpsMetadataTooManyUpdatesException":             newErrorOpsMetadataTooManyUpdatesException,
+	"ParameterAlreadyExists":                         newErrorParameterAlreadyExists,
+	"ParameterLimitExceeded":                         newErrorParameterLimitExceeded,
+	"ParameterMaxVersionLimitExceeded":               newErrorParameterMaxVersionLimitExceeded,
+	"ParameterNotFound":                              newErrorParameterNotFound,
+	"ParameterPatternMismatchException":              newErrorParameterPatternMismatchException,
+	"ParameterVersionLabelLimitExceeded":             newErrorParameterVersionLabelLimitExceeded,
+	"ParameterVersionNotFound":                       newErrorParameterVersionNotFound,
+	"PoliciesLimitExceededException":                 newErrorPoliciesLimitExceededException,
+	"ResourceDataSyncAlreadyExistsException":         newErrorResourceDataSyncAlreadyExistsException,
+	"ResourceDataSyncConflictException":              newErrorResourceDataSyncConflictException,
+	"ResourceDataSyncCountExceededException":         newErrorResourceDataSyncCountExceededException,
+	"ResourceDataSyncInvalidConfigurationException":  newErrorResourceDataSyncInvalidConfigurationException,
+	"ResourceDataSyncNotFoundException":              newErrorResourceDataSyncNotFoundException,
+	"ResourceInUseException":                         newErrorResourceInUseException,
+	"ResourceLimitExceededException":                 newErrorResourceLimitExceededException,
+	"ServiceSettingNotFound":                         newErrorServiceSettingNotFound,
+	"StatusUnchanged":                                newErrorStatusUnchanged,
+	"SubTypeCountLimitExceededException":             newErrorSubTypeCountLimitExceededException,
+	"TargetInUseException":                           newErrorTargetInUseException,
+	"TargetNotConnected":                             newErrorTargetNotConnected,
+	"TooManyTagsError":                               newErrorTooManyTagsError,
+	"TooManyUpdates":                                 newErrorTooManyUpdates,
+	"TotalSizeLimitExceededException":                newErrorTotalSizeLimitExceededException,
+	"UnsupportedCalendarException":                   newErrorUnsupportedCalendarException,
+	"UnsupportedFeatureRequiredException":            newErrorUnsupportedFeatureRequiredException,
+	"UnsupportedInventoryItemContextException":       newErrorUnsupportedInventoryItemContextException,
+	"UnsupportedInventorySchemaVersionException":     newErrorUnsupportedInventorySchemaVersionException,
+	"UnsupportedOperatingSystem":                     newErrorUnsupportedOperatingSystem,
+	"UnsupportedParameterType":                       newErrorUnsupportedParameterType,
+	"UnsupportedPlatformType":                        newErrorUnsupportedPlatformType,
 }
