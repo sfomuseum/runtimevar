@@ -3,7 +3,7 @@ module github.com/sfomuseum/runtimevar
 go 1.18
 
 require (
-	github.com/aaronland/go-aws-session v0.1.0
+	github.com/aaronland/go-aws-session v0.2.1
 	gocloud.dev v0.29.0
 )
 
