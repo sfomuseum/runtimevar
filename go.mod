@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/aaronland/go-aws-session v0.2.1
-	gocloud.dev v0.33.0
+	gocloud.dev v0.34.0
 )
 
 require (
