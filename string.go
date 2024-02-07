@@ -3,7 +3,7 @@ package runtimevar
 import (
 	"context"
 	"fmt"
-	"github.com/aaronland/go-aws-session"
+	"github.com/aaronland/go-aws-auth"	
 	gc "gocloud.dev/runtimevar"
 	"gocloud.dev/runtimevar/awsparamstore"
 	_ "gocloud.dev/runtimevar/constantvar"
@@ -42,14 +42,14 @@ func StringVar(ctx context.Context, uri string) (string, error) {
 
 		if creds != "" {
 
-			dsn_str := fmt.Sprintf("region=%s credentials=%s", region, creds)
-			sess, err := session.NewSessionWithDSN(dsn_str)
+			aws_uri := fmt.Sprintf("aws://%s?credentials=%s", region, creds)
+			aws_auth, err := auth.NewSSMClient(ctx, aws_uri)
 
 			if err != nil {
-				return "", err
+				return "", fmt.Errorf("Failed to create AWS session credentials, %w", err)
 			}
 
-			v, v_err = awsparamstore.OpenVariable(sess, u.Host, gc.StringDecoder, nil)
+			v, v_err = awsparamstore.OpenVariableV2(aws_auth, u.Host, gc.StringDecoder, nil)			
 		}
 
 	default:
