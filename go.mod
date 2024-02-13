@@ -1,7 +1,6 @@
 module github.com/sfomuseum/runtimevar
 
-go 1.22rc2
-
+go 1.18
 require (
 	github.com/aaronland/go-aws-auth v1.3.0
 	gocloud.dev v0.36.0
