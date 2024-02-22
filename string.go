@@ -5,12 +5,11 @@ import (
 	"fmt"
 	"net/url"
 
-	"github.com/aaronland/go-aws-auth"	
+	"github.com/aaronland/go-aws-auth"
 	gc "gocloud.dev/runtimevar"
 	"gocloud.dev/runtimevar/awsparamstore"
 	_ "gocloud.dev/runtimevar/constantvar"
 	_ "gocloud.dev/runtimevar/filevar"
-	_ "log"	
 )
 
 // StringVar returns the latest string value contained by 'uri', which is expected
@@ -26,7 +25,7 @@ func StringVar(ctx context.Context, uri string) (string, error) {
 	if u.Scheme == "" {
 		return u.Path, nil
 	}
-	
+
 	q := u.Query()
 
 	if q.Get("decoder") == "" {
@@ -54,7 +53,7 @@ func StringVar(ctx context.Context, uri string) (string, error) {
 				return "", fmt.Errorf("Failed to create AWS session credentials, %w", err)
 			}
 
-			v, v_err = awsparamstore.OpenVariableV2(aws_auth, u.Host, gc.StringDecoder, nil)			
+			v, v_err = awsparamstore.OpenVariableV2(aws_auth, u.Host, gc.StringDecoder, nil)
 		}
 
 	default:
@@ -69,7 +68,7 @@ func StringVar(ctx context.Context, uri string) (string, error) {
 	}
 
 	if v_err != nil {
-		return "", v_err
+		return "", fmt.Errorf("Failed to open variable, %w", v_err)
 	}
 
 	defer v.Close()
@@ -77,7 +76,7 @@ func StringVar(ctx context.Context, uri string) (string, error) {
 	snapshot, err := v.Latest(ctx)
 
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("Failed to derive latest snapshot for variable, %w", err)
 	}
 
 	return snapshot.Value.(string), nil

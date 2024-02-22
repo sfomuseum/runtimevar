@@ -2,41 +2,21 @@ package main
 
 import (
 	"context"
-	"flag"
-	"fmt"
-	"log"
-	"time"
+	"log/slog"
+	"os"
 
-	"github.com/sfomuseum/runtimevar"
-	_ "gocloud.dev/runtimevar/awsparamstore"
-	_ "gocloud.dev/runtimevar/constantvar"
-	_ "gocloud.dev/runtimevar/filevar"
+	"github.com/sfomuseum/runtimevar/app/runtimevar"
 )
 
 func main() {
 
-	timeout := flag.Int("timeout", 0, "The maximum number of second in which a variable can be resolved. If 0 no timeout is applied.")
-
-	flag.Parse()
-
 	ctx := context.Background()
+	logger := slog.Default()
 
-	if *timeout > 0 {
+	err := runtimevar.Run(ctx, logger)
 
-		c, cancel := context.WithTimeout(ctx, time.Duration(*timeout)*time.Second)
-		defer cancel()
-
-		ctx = c
-	}
-
-	for _, uri := range flag.Args() {
-
-		str_var, err := runtimevar.StringVar(ctx, uri)
-
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		fmt.Printf(str_var)
+	if err != nil {
+		logger.Error("Failed to run application", "error", err)
+		os.Exit(1)
 	}
 }

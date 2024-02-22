@@ -1,42 +1,51 @@
-package main
+package runtimevar
 
 import (
 	"context"
 	"flag"
 	"fmt"
-	"log"
+	"log/slog"
 	"time"
 
 	"github.com/sfomuseum/runtimevar"
-	_ "gocloud.dev/runtimevar/awsparamstore"
-	_ "gocloud.dev/runtimevar/constantvar"
-	_ "gocloud.dev/runtimevar/filevar"
 )
 
-func main() {
+func Run(ctx context.Context, logger *slog.Logger) error {
+	fs := DefaultFlagSet()
+	return RunWithFlagSet(ctx, fs, logger)
+}
 
-	timeout := flag.Int("timeout", 0, "The maximum number of second in which a variable can be resolved. If 0 no timeout is applied.")
+func RunWithFlagSet(ctx context.Context, fs *flag.FlagSet, logger *slog.Logger) error {
 
-	flag.Parse()
+	opts, err := OptionsFromFlagSet(ctx, fs)
 
-	ctx := context.Background()
+	if err != nil {
+		return fmt.Errorf("Failed to derive options from flagset, %w", err)
+	}
 
-	if *timeout > 0 {
+	return RunWithOptions(ctx, opts, logger)
+}
 
-		c, cancel := context.WithTimeout(ctx, time.Duration(*timeout)*time.Second)
+func RunWithOptions(ctx context.Context, opts *RunOptions, logger *slog.Logger) error {
+
+	if opts.Timeout > 0 {
+
+		c, cancel := context.WithTimeout(ctx, time.Duration(opts.Timeout)*time.Second)
 		defer cancel()
 
 		ctx = c
 	}
 
-	for _, uri := range flag.Args() {
+	for _, uri := range opts.Vars {
 
 		str_var, err := runtimevar.StringVar(ctx, uri)
 
 		if err != nil {
-			log.Fatal(err)
+			return fmt.Errorf("Failed to derive variable, %w", err)
 		}
 
 		fmt.Printf(str_var)
 	}
+
+	return nil
 }

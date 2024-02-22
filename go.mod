@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/aaronland/go-aws-auth v1.3.1
+	github.com/sfomuseum/go-flags v0.10.0
 	gocloud.dev v0.36.0
 )
 
