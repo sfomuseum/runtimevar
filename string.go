@@ -3,13 +3,14 @@ package runtimevar
 import (
 	"context"
 	"fmt"
+	"net/url"
+
 	"github.com/aaronland/go-aws-auth"	
 	gc "gocloud.dev/runtimevar"
 	"gocloud.dev/runtimevar/awsparamstore"
 	_ "gocloud.dev/runtimevar/constantvar"
 	_ "gocloud.dev/runtimevar/filevar"
-	_ "log"
-	"net/url"
+	_ "log"	
 )
 
 // StringVar returns the latest string value contained by 'uri', which is expected
@@ -19,9 +20,13 @@ func StringVar(ctx context.Context, uri string) (string, error) {
 	u, err := url.Parse(uri)
 
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("Failed to parse URI, %w", err)
 	}
 
+	if u.Scheme == "" {
+		return u.Path, nil
+	}
+	
 	q := u.Query()
 
 	if q.Get("decoder") == "" {
