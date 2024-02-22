@@ -15,6 +15,8 @@ func TestConstantVar(t *testing.T) {
 
 	tests := map[string]string{
 		"constant://?val=hello+world": "hello world",
+		"/foo/bar/baz":                "/foo/bar/baz",
+		"test":                        "test",
 	}
 
 	for uri, expected := range tests {
