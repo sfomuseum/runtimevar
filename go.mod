@@ -2,8 +2,6 @@ module github.com/sfomuseum/runtimevar
 
 go 1.22.1
 
-toolchain go1.23.2
-
 require (
 	github.com/aaronland/go-aws-auth v1.7.0
 	github.com/sfomuseum/go-flags v0.10.0
