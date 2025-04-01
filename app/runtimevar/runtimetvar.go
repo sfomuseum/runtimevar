@@ -44,7 +44,7 @@ func RunWithOptions(ctx context.Context, opts *RunOptions, logger *slog.Logger) 
 			return fmt.Errorf("Failed to derive variable, %w", err)
 		}
 
-		fmt.Printf(str_var)
+		fmt.Println(str_var)
 	}
 
 	return nil
