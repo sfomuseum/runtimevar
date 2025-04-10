@@ -3,8 +3,7 @@ package runtimevar
 import (
 	"context"
 	"fmt"
-	_ "gocloud.dev/runtimevar/constantvar"
-	_ "gocloud.dev/runtimevar/filevar"
+	"net/url"
 	"path/filepath"
 	"testing"
 )
@@ -51,6 +50,38 @@ func TestFileVar(t *testing.T) {
 		}
 
 		uri := fmt.Sprintf("file://%s?decoder=string", abs_path)
+
+		str_var, err := StringVar(ctx, uri)
+
+		if err != nil {
+			t.Fatalf("Failed to retrieve string var for '%s', %v", uri, err)
+		}
+
+		if str_var != expected {
+			t.Fatalf("Unexpected result for '%s'. Expected '%s' but got '%s'", uri, expected, str_var)
+		}
+	}
+
+}
+
+func TestBlobVar(t *testing.T) {
+
+	ctx := context.Background()
+
+	abs_fixtures, err := filepath.Abs("fixtures")
+
+	if err != nil {
+		t.Fatalf("Failed to derive absolute path for fixtures, %v", err)
+	}
+
+	bucket_uri := fmt.Sprintf("file://%s", abs_fixtures)
+	bucket_uri = url.QueryEscape(bucket_uri)
+
+	tests := map[string]string{
+		fmt.Sprintf("blobvar://helloworld.txt?bucket-uri=%s&decoder=string", bucket_uri): "hello world\n",
+	}
+
+	for uri, expected := range tests {
 
 		str_var, err := StringVar(ctx, uri)
 
