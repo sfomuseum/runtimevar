@@ -48,10 +48,14 @@ Usage of ./bin/runtimevar:
     	The maximum number of second in which a variable can be resolved. If 0 no timeout is applied.
 ```
 
+#### Example
+
 ```
 $> go run cmd/runtimevar/main.go 'constant://?val=hello+world'
 hello world
 ```
+
+## Supported services
 
 The following Go Cloud `runtimevar` services are supported by the runtimevar tool by default:
 
