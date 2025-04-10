@@ -3,7 +3,6 @@ package runtimevar
 import (
 	"context"
 	"fmt"
-	_ "log/slog"
 	"net/url"
 
 	_ "github.com/aaronland/gocloud-blob/s3"
@@ -66,14 +65,17 @@ func StringVar(ctx context.Context, uri string) (string, error) {
 
 	case "blobvar":
 
-		bucket_uri := q.Get("bucket-uri")
-		bucket_uri, err := url.QueryUnescape(bucket_uri)
+		if !q.Has("bucket-uri") {
+			return "", fmt.Errorf("Missing ?bucket-uri parameter")
+		}
+
+		b_uri, err := url.QueryUnescape(q.Get("bucket-uri"))
 
 		if err != nil {
 			return "", fmt.Errorf("Failed to unescape bucket URI, %w", err)
 		}
 
-		b, err := bucket.OpenBucket(ctx, bucket_uri)
+		b, err := bucket.OpenBucket(ctx, b_uri)
 
 		if err != nil {
 			return "", fmt.Errorf("Failed to open bucket, %w", err)
