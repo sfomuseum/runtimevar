@@ -2,6 +2,10 @@
 
 Simple wrapper around the Go Cloud runtimevar package
 
+## Deprecation notice
+
+This package has been deprecated and will no longer be updated. It has been replaced by the [aaronland/gocloud](https://github.com/aaronland/gocloud) package.
+
 ## Documentation
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/sfomuseum/runtimevar.svg)](https://pkg.go.dev/github.com/sfomuseum/runtimevar)
